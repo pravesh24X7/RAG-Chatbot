@@ -1,0 +1,42 @@
+[tool.poetry]
+name = "rag-chatbot"
+version = "0.1.0"
+description = "RAG chatbot using LangChain"
+authors = ["Your Name <you@example.com>"]
+readme = "README.md"
+packages = [
+    { include = "app" },
+]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+
+# Server
+fastapi = "^0.115.0"
+uvicorn = "^0.30.0"
+
+# Core LangChain ecosystem
+langchain = "^1.2.13"
+langchain-core = "^1.2.13"
+langchain-community = "^0.4.1"
+
+# Optional providers
+langchain-openai = "^1.1.10"
+
+# RAG essentials
+faiss-cpu = "^1.8.0"
+chromadb = "^1.5.5"
+pypdf = "^4.3.1"
+
+# Modern Pydantic
+pydantic = "^2.7.4"
+
+# HTTP compatibility
+httpx = "^0.27.2"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.0.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
