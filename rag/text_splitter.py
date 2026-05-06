@@ -10,8 +10,8 @@ def get_all_documents(filepath: str):
         pdf_pages.append(page)
     
     splitter = RecursiveCharacterTextSplitter(chunk_size=1000,
-                                              chunk_overlap=200,
-                                            #   separators=["\n\n", "\n", "."]
+                                              chunk_overlap=100,
+                                              separators=["\n\n", "\n", ".", " "]
                                               )
     
     documents = splitter.split_documents(pdf_pages)

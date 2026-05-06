@@ -17,7 +17,7 @@ def execute(retriever, name: str):
     parser = StrOutputParser()
 
     chain = ({
-        "context": retriever | RunnableLambda(format_docs),
+        "context": RunnableLambda(lambda x: x["query"]) | retriever | RunnableLambda(format_docs),
         "query": RunnableLambda(lambda x: x["query"])
     }) | prompt | llm_model | parser
 

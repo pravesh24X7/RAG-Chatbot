@@ -1,13 +1,8 @@
 from langchain_community.vectorstores import FAISS
-from langchain_huggingface import HuggingFaceEmbeddings
-from dotenv import load_dotenv
 
 from app.config import VECTORSTORE_PATH, EMBEDDING_MODEL
 from .embeddings import get_embedding_model
 from .text_splitter import get_all_documents
-
-
-load_dotenv()
 
 
 def create_vector_store(filepath: str):
@@ -24,7 +19,7 @@ def create_vector_store(filepath: str):
 
 def load_vector_store():
 
-    embedding_model = HuggingFaceEmbeddings(model=EMBEDDING_MODEL)
+    embedding_model = get_embedding_model()
     vector_store = FAISS.load_local(VECTORSTORE_PATH, embeddings=embedding_model,
                                     allow_dangerous_deserialization=True)
     
@@ -35,8 +30,9 @@ def get_retriever():
     vector_store = load_vector_store()
     retriever = vector_store.as_retriever(search_type="mmr",
                                           search_kwargs={
-                                              "k": 5,
-                                              "lambda_mult": 0.5,
-                                          })
+                                                "k": 5,
+                                                "fetch_k": 20,
+                                                "lambda_mult": 0.7,
+                                            })
     
     return retriever
