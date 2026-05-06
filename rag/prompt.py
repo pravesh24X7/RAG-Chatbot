@@ -5,14 +5,20 @@ from app.config import PROMPT_PATH
 
 def generate_prompt(name: str):
     template = """
-        You are a helpful assistant, Provide answers to user query. strictly on the basis of given context. If context is insufficient says `In-Sufficient Context provided`.
+        Instructions:
+            1. Use only the given context to generate your answer.
+            2. Do not use prior knowledge or make assumptions beyond the context.
+            3. If the answer is not explicitly or implicitly present in the context, say:
+                "I don’t have enough information to answer that."
+            4. Keep the answer clear, concise, and relevant to the question.
+            5. If applicable, cite or reference the exact part of the context that supports your answer.
         \n\n
         Context: {context}
         \n\n
-        Query: {query}
+        Question: {query}
     """
 
     prompt = PromptTemplate(template=template,
                             validate_template=True,
                             input_variables=['context', 'query'])
-    prompt.to_json(f"{PROMPT_PATH}{name}")
+    prompt.save(f"{PROMPT_PATH}{name}")

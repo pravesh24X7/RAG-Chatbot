@@ -16,7 +16,8 @@ class RAGPipeline:
         print("[+] Generating base prompt template.")
         generate_prompt(name="base.json")
 
-        self.execution_chain = execute(self.retriever)
+        self.execution_chain = execute(self.retriever,
+                                       name="base.json")
 
 
     def run(self, query: str) -> str:
